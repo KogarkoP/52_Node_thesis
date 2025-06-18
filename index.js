@@ -19,7 +19,7 @@ mongoose
   });
 
 app.use("/users", userRouter);
-app.use("/products", ticketRouter);
+app.use("/tickets", ticketRouter);
 
 app.use((_req, res) => {
   return res.status(404).json({

@@ -8,10 +8,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     },
     password: { type: String, required: true },
-    bought_tickets: { type: [Object], required: true },
+    bought_tickets: { type: [], required: true },
+    money_balance: { type: Number, required: true },
   },
   { timestamps: true }
 );

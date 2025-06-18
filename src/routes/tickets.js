@@ -7,7 +7,7 @@ import ticketSchema from "../schemas/tickets.js";
 
 const router = express.Router();
 
-router.post("/", validate(ticketSchema), auth, INSERT_TICKET);
-router.post("/:id", auth, BUY_TICKET);
+router.post("/insert", validate(ticketSchema), auth, INSERT_TICKET);
+router.post("/buyTicket", auth, BUY_TICKET);
 
 export default router;
