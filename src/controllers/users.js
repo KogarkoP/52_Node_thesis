@@ -81,23 +81,49 @@ export const GET_ALL_USERS_WITH_TICKETS = async (req, res) => {
   }
 };
 
-export const GET_USER_BY_ID_WITH_TICKETS = async () => {
-  // try {
-  //   // const userWithTicket = await userModel
-  //   //   .find({
-  //   //     bought_tickets: { $ne: [] },
-  //   //   })
-  //   //   .select("-password -__v -_id");
-  //   return res.status(200).json({
-  //     message: "Here are your requested users",
-  //     users: usersWithTicket,
-  //   });
-  // } catch (err) {
-  //   console.log(err);
-  //   return res.status(500).json({
-  //     message: err,
-  //   });
-  // }
+export const GET_USER_BY_ID_WITH_TICKETS = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const userWithTicket = await userModel.aggregate([
+      {
+        $lookup: {
+          from: "tickets",
+          localField: "bought_tickets",
+          foreignField: "id",
+          as: "bought_tickets",
+        },
+      },
+      {
+        $match: {
+          id: userId,
+          bought_tickets: { $ne: [] },
+        },
+      },
+      {
+        $project: {
+          password: 0,
+          _id: 0,
+          __v: 0,
+        },
+      },
+    ]);
+
+    if (userWithTicket.length === 0) {
+      return res.status(404).json({
+        message: "User not found or no tickets bought",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Here is your requested user",
+      users: userWithTicket,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err,
+    });
+  }
 };
 
 export const INSERT_USER = async (req, res) => {

@@ -17,8 +17,8 @@ const router = express.Router();
 
 router.get("/", auth, GET_ALL_USERS);
 router.get("/withTickets", auth, GET_ALL_USERS_WITH_TICKETS);
-router.get("/:id", auth, GET_USER_BY_ID);
 router.get("/withTickets/:id", auth, GET_USER_BY_ID_WITH_TICKETS);
+router.get("/:id", auth, GET_USER_BY_ID);
 router.post("/signUp", validate(userSchema), INSERT_USER);
 router.post("/login", validate(loginSchema), LOGIN_USER);
 
