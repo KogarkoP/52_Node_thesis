@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import userRouter from "./src/routes/users.js";
 import ticketRouter from "./src/routes/tickets.js";
+import cookieparser from "cookie-parser";
 import "dotenv/config";
 
 const app = express();
@@ -10,6 +11,8 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+
+app.use(cookieparser());
 
 mongoose
   .connect(process.env.MONGO_DB_CONNECTION)
