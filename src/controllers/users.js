@@ -41,7 +41,7 @@ export const GET_USER_BY_ID = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: err,
+      message: "Internal server error",
     });
   }
 };
@@ -76,7 +76,7 @@ export const GET_ALL_USERS_WITH_TICKETS = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: err,
+      message: "Internal server error",
     });
   }
 };
@@ -121,7 +121,7 @@ export const GET_USER_BY_ID_WITH_TICKETS = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: err,
+      message: "Internal server error",
     });
   }
 };
@@ -150,8 +150,15 @@ export const INSERT_USER = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+    const DUPLICATE_ERROR_CODE = 11000;
+    if (err.code === DUPLICATE_ERROR_CODE) {
+      return res
+        .status(409)
+        .json({ message: "User with this email already exists" });
+    }
+
     return res.status(500).json({
-      message: err,
+      message: "Internal server error",
     });
   }
 };
@@ -207,7 +214,7 @@ export const LOGIN_USER = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: err,
+      message: "Internal server error",
     });
   }
 };
@@ -231,7 +238,7 @@ export const REFRESH_TOKEN = (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: err,
+      message: "Internal server error",
     });
   }
 };

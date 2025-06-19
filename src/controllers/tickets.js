@@ -19,7 +19,7 @@ export const INSERT_TICKET = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: err,
+      message: "Internal server error",
     });
   }
 };
@@ -64,7 +64,7 @@ export const BUY_TICKET = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: err,
+      message: "Internal server error",
     });
   }
 };
