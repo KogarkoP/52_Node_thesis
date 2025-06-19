@@ -26,7 +26,7 @@ export const INSERT_TICKET = async (req, res) => {
 
 export const BUY_TICKET = async (req, res) => {
   try {
-    const userId = req.body.userId;
+    const userId = req.user.userId;
     const ticketId = req.body.ticketId;
 
     const user = await userModel.findOne({ id: userId });
