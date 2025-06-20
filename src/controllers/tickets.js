@@ -30,13 +30,10 @@ export const BUY_TICKET = async (req, res) => {
     const ticketId = req.body.ticketId;
 
     const user = await userModel.findOne({ id: userId });
+
     const ticket = await ticketModel.findOne({ id: ticketId });
 
-    if (!user) {
-      return res.status(400).json({
-        message: "User not found",
-      });
-    } else if (!ticket) {
+    if (!ticket) {
       return res.status(400).json({
         message: "Ticket not found",
       });
